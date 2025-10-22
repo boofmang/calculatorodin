@@ -11,12 +11,21 @@ const back = document.querySelector(".delete");
 const evaluate = document.querySelector(".equals");
 const decimal = document.querySelector(".decimal");
 let decimalactive = false
+let justevaluated = false
 
 /////butttons///////
 numberbuttons.forEach(button => {
     const value = button.textContent;
     const newvalue = parseFloat(value);
-    button.addEventListener("click", () => updateNumber(newvalue));   
+    button.addEventListener("click", () => {
+          if (justevaluated === true) {
+        return;
+    }
+    else {
+        updateNumber(newvalue);
+    }
+   
+})
 });
 
 clearall.addEventListener("click", () => {
@@ -28,11 +37,15 @@ clearall.addEventListener("click", () => {
 })
 
 back.addEventListener("click", () => {
-    display.textContent = display.textContent.slice(0, -1);
-})
+    if (justevaluated === true) {
+        return;
+    }
+    else {
+    display.textContent = display.textContent.slice(0, -1);}
+});
 
 decimal.addEventListener("click", () => {
-    if (display.textContent.includes(".")) {
+    if (display.textContent.includes(".") || justevaluated == true) {
         return;}
         else {
             display.textContent += ".";
@@ -54,6 +67,7 @@ operatorbuttons.forEach(button => {
         operator = value;
         numberone = currentnumber;
         display.textContent = "";
+        justevaluated = false;
     })
 })
 
@@ -71,6 +85,7 @@ evaluate.addEventListener("click", () => {
     currentnumber = String(result);
     numberone = currentnumber;
     display.textContent = currentnumber;
+    justevaluated = true
     }
 });
 
