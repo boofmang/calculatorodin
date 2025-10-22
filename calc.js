@@ -9,6 +9,8 @@ const operatorbuttons = document.querySelectorAll(".operators");
 const clearall = document.querySelector(".clearall");
 const back = document.querySelector(".delete");
 const evaluate = document.querySelector(".equals");
+const decimal = document.querySelector(".decimal");
+let decimalactive = false
 
 /////butttons///////
 numberbuttons.forEach(button => {
@@ -28,6 +30,16 @@ clearall.addEventListener("click", () => {
 back.addEventListener("click", () => {
     display.textContent = display.textContent.slice(0, -1);
 })
+
+decimal.addEventListener("click", () => {
+    if (display.textContent.includes(".")) {
+        return;}
+        else {
+            display.textContent += ".";
+        }
+    });
+    
+
 
 function updateNumber(number) {
 
