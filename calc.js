@@ -34,6 +34,7 @@ clearall.addEventListener("click", () => {
     numberone = "";
     numbertwo = "";
     operator = "";
+    justevaluated = false;
 })
 
 back.addEventListener("click", () => {
