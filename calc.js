@@ -1,3 +1,22 @@
+
+let numberone = "";
+let operator = "";
+let numbertwo = "";
+let display = document.getElementById("displaytext");
+let currentnumber = "";
+const numberbuttons = document.querySelectorAll(".numbers")
+
+
+numberbuttons.forEach(button => {
+    const value = button.textContent;
+    const newvalue = parseFloat(value);
+    button.addEventListener("click", () => updateNumber(newvalue));   
+});
+
+function updateNumber(number) {
+    display.textContent += parseFloat(number);
+}
+
 const add = function(num1, num2){
     return num1 + num2;
 };
@@ -15,24 +34,24 @@ const multiply = function(num1, num2){
 }
 
 
-let numberone = ``;
-let operator = ``;
-let numbertwo = ``;
-
 const operate = function(numberone, operator, numbertwo){
-    numberone = Number(numberone);
-    numbertwo = Number(numbertwo);
+    numberone = parseFloat(numberone);
+    numbertwo = parseFloat(numbertwo);
 
     let result;
     switch(operator){
-        case "+": result = add(num1, num2); break;
-        case "-": result = subtract(num1, num2); break;
-        case "x": result = multiply(num1, num2); break;
-        case "/": result = divide(num1, num2); break;
+        case "+": result = add(numberone, numbertwo); break;
+        case "-": result = subtract(numberone, numbertwo); break;
+        case "*": result = multiply(numberone, numbertwo); break;
+        case "/": result = divide(numberone, numbertwo); break;
         default: result = 0;
     };
 
+       if (typeof result === "number") {
+        result = parseFloat(result.toFixed(6));
+};
 
+  return result;
 
 };
 
