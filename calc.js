@@ -21,6 +21,9 @@ numberbuttons.forEach(button => {
           if (justevaluated === true) {
         return;
     }
+    if (display.textContent.length >= 8) {
+        return;
+    }
     else {
         updateNumber(newvalue);
     }
@@ -57,7 +60,7 @@ decimal.addEventListener("click", () => {
 
 function updateNumber(number) {
 
-    display.textContent += String(number);
+    display.textContent += number;
     currentnumber = display.textContent;
 }
 
@@ -83,9 +86,14 @@ evaluate.addEventListener("click", () => {
     else{
     const result = operate(numberone, operator, numbertwo);
     // store and display the result as a string; also use it as the next left operand
-    currentnumber = String(result);
-    numberone = currentnumber;
-    display.textContent = currentnumber;
+    currentnumber = Number(result);
+       if (typeof currentnumber === 'number' && isFinite(currentnumber)) {
+        currentnumber = parseFloat(currentnumber.toPrecision(6));
+    }
+   
+    display.textContent = currentnumber.toPrecision(6);
+    numberone = parseFloat(currentnumber);
+   
     justevaluated = true
     }
 });
@@ -112,22 +120,34 @@ const multiply = function(num1, num2){
 const operate = function(numberone, operator, numbertwo){
     numberone = parseFloat(numberone);
     numbertwo = parseFloat(numbertwo);
+    // If either operand isn't a number, return NaN so the caller can handle it
+    if (Number.isNaN(numberone) || Number.isNaN(numbertwo)) return NaN;
 
     let result;
     switch(operator){
-        case "+": result = add(numberone, numbertwo); break;
-        case "-": result = subtract(numberone, numbertwo); break;
-        case "*": result = multiply(numberone, numbertwo); break;
-        case "/": result = divide(numberone, numbertwo); break;
-        default: result = 0;
-    };
+        case "+":
+            result = add(numberone, numbertwo);
+            break;
+        case "-":
+            result = subtract(numberone, numbertwo);
+            break;
+        case "*":
+        case "x":
+            // accept both '*' and 'x' labels for multiply
+            result = multiply(numberone, numbertwo);
+            break;
+        case "/":
+            result = divide(numberone, numbertwo);
+            break;
+        default:
+            return NaN;
+    }
 
-       if (typeof result === "number") {
-        result = parseFloat(result.toFixed(6));
+    // Round to max 6 significant digits for display/consistency
+    if (typeof result === 'number' && isFinite(result)) {
+        result = parseFloat(result.toPrecision(6));
+    }
+
+    return result;
 };
-
-  return result;
-
-};
-
 

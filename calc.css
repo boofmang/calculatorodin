@@ -5,10 +5,10 @@
 }
 
 #display{
-    width: 80%;
+    width: 85%;
     height: 100px;
-    background-color: royalblue;
-    color: white;
+    background-color: black;
+    color: green;
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     align-items: center;
@@ -32,6 +32,7 @@
 #calcbody {
     background-color: silver;
     border: 2px, solid, black;
+    border-radius: 10px;
     border-radius: 10px;
     height: 500px;
     width: 300px;
